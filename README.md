@@ -68,47 +68,72 @@ The artifact instantiates four supervisory mechanisms:
 - Solidity 0.8.28
 - EVM target: Cancun
 
+The guard-mutation analysis was run with Node.js 22.23.4 and the solc 0.8.28 WASM build; see `mutation_analysis/README.md`.
+
 ## Reproduction commands
 
 ```bash
 npm ci
-npx.cmd hardhat test
-npx.cmd hardhat test nodejs --coverage
-## Controlled execution result
+npx hardhat test                      # runs EC1-EC19 and AC1-AC37
+npx hardhat test nodejs --coverage    # coverage report
+```
+
+To reproduce the guard-mutation analysis, run from `mutation_analysis/`:
+
+```bash
+python3 mutate.py
+python3 run_mutants.py
+```
 
 ## Controlled execution result
-19 pre-specified test cases completed successfully
-99.23% line coverage
-99.12% statement coverage
-baseline, boundary, and exception-handoff cases executed
-observed responses matched the pre-execution expectations
-Supported inference
 
-## The controlled execution supports:
+Pre-specified suite (EC1-EC19), original run and independent reproduction:
 
-specification-to-execution conformance
-selected application-level governance enforcement
-tested boundary blocking
-preservation of protected state following rejected actions
-controlled exception-handoff behavior
-Claim boundaries
+- 19 of 19 pre-specified cases matched the expected-result manifest
+- 99.23% line coverage and 99.12% statement coverage
+- baseline, boundary, and exception-handoff cases executed
+- observed responses matched the pre-execution expectations
 
-## The artifact and execution evidence do not establish:
+## Guard-mutation analysis
 
-legal correctness
-official institutional approval
-production readiness
-scalability
-performance superiority
-operational adoption
-representative stakeholder validation
-field-level administrative effects
+The frozen V3.1-R2 contract was mutated 109 times, each mutant altering exactly one governance-relevant element. Artifact logic and EC1-EC19 are unchanged.
 
-Application roles represent technical permissions rather than legal authority, institutional appointment, delegation, or separation of duties. Complete operational records remain in institutional source systems. Authenticity, semantic truth, evidentiary sufficiency, correction, review authority, and substantive administrative judgment remain institutionally governed.
+| Suite | Mutants detected |
+|---|---|
+| EC1-EC19 (pre-specified) | 70 of 109 (64.2%) |
+| EC1-EC19 removing or relaxing a prohibition | 11 of 50 (22.0%) |
+| EC1-EC19 plus AC1-AC37 (mutation-guided) | 109 of 109 (100%) |
+
+AC1-AC37 were written after the first round, with knowledge of the surviving mutants. The second-round result shows that each encoded condition is load-bearing in V3.1-R2; it does not estimate how well the extended suite detects faults it was not designed to target. Per-mutant results for both rounds are in `mutation_analysis/`.
+
+## Supported inference
+
+The controlled execution supports:
+
+- specification-to-execution conformance
+- enforcement of the encoded permissions, prerequisites, and branch conditions
+- tested boundary blocking
+- preservation of protected state following rejected actions
+- controlled exception-handoff behavior
+
+## Claim boundaries
+
+The artifact and execution evidence do not establish:
+
+- legal correctness
+- official institutional approval
+- production readiness
+- scalability
+- performance superiority
+- operational adoption
+- representative stakeholder validation
+- field-level administrative effects
+
+Application roles represent technical permissions rather than legal authority, institutional appointment, delegation, or separation of duties. As a proof-of-concept simplification, a single role-administration account assigns all application roles. Complete operational records remain in institutional source systems. Authenticity, semantic truth, evidentiary sufficiency, correction, review authority, and substantive administrative judgment remain institutionally governed.
 
 ## Evidence availability
 
-The repository contains the versioned artifact, test suite, and frozen controlled-execution evidence package.
+The repository contains the versioned artifact, both test suites, the frozen controlled-execution evidence package, and the guard-mutation materials.
 
 Participant-level records, identifying crosswalks, consent records, and confidential institutional materials are not included. Institutional-appraisal evidence and official-source mappings are reported in anonymized form in the manuscript supplementary material.
 
@@ -118,9 +143,4 @@ This repository is public. During double-anonymized review, reviewers access the
 
 ## License
 
-The repository license applies to the source code and does not imply institutional approval, legal validity, or fitness for production use.
-
-
-## Guard-mutation analysis
-
-The frozen V3.1-R2 contract was mutated 109 times, each mutant altering exactly one governance-relevant element. The pre-specified suite (EC1-EC19) detected 70 of 109 mutants; with the adversarial cases (AC1-AC37) added, all 109 were detected. Artifact logic and EC1-EC19 are unchanged. See `mutation_analysis/README.md` to reproduce both rounds.
+No license file is included yet; until one is added, default copyright applies. The code does not imply institutional approval, legal validity, or fitness for production use.
