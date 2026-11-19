@@ -1,16 +1,18 @@
-﻿# Governance-Encoded Supervision Artifact
+# Governance-Encoded Supervision Artifact
 
-This private repository contains the bounded-core V3.1-R2 artifact, controlled test suite, and frozen execution evidence for a design science study of supervisory governability in VAT e-invoicing.
+This repository contains the bounded-core V3.1-R2 artifact, controlled test suites, frozen execution evidence, and guard-mutation analysis materials for a design science study of supervisory governability in VAT e-invoicing.
 
 The artifact instantiates governance-encoded supervision as a bounded design logic for addressing structural uncertainty across separately administered institutional systems. Structural uncertainty refers to insufficient binding among event progression, actor authorization, sequence dependency, and evidentiary linkage.
 
 ## Repository structure
 
-- `contracts/` — V3.1-R2 bounded-core Solidity artifact
-- `test/` — controlled Node.js and TypeScript test suite
-- `evidence/` — frozen controlled-execution evidence package
-- `hardhat.config.ts` — Hardhat and EVM configuration
-- `package.json` — project dependencies and execution scripts
+- `contracts/`: V3.1-R2 bounded-core Solidity artifact
+- `test/governance.spec.ts`: pre-specified controlled suite (EC1-EC19)
+- `test/adversarial.spec.ts`: mutation-guided adversarial cases (AC1-AC37), written after the first mutation round
+- `mutation_analysis/`: mutant generator, runner, and per-mutant results for both rounds
+- `evidence/`: frozen controlled-execution evidence package
+- `hardhat.config.ts`: Hardhat and EVM configuration
+- `package.json`: project dependencies and execution scripts
 
 ## Supervisory specification
 
@@ -119,3 +121,8 @@ The repository URL, owner identity, commit author metadata, and other identifyin
 ## License
 
 The repository license applies to the source code and does not imply institutional approval, legal validity, or fitness for production use.
+
+
+## Guard-mutation analysis
+
+The frozen V3.1-R2 contract was mutated 109 times, each mutant altering exactly one governance-relevant element. The pre-specified suite (EC1-EC19) detected 70 of 109 mutants; with the adversarial cases (AC1-AC37) added, all 109 were detected. Artifact logic and EC1-EC19 are unchanged. See `mutation_analysis/README.md` to reproduce both rounds.
