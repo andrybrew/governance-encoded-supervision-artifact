@@ -143,4 +143,4 @@ This repository is public. During double-anonymized review, reviewers access the
 
 ## License
 
-No license file is included yet; until one is added, default copyright applies. The code does not imply institutional approval, legal validity, or fitness for production use.
+The code is released under the MIT License (see `LICENSE`). The license does not imply institutional approval, legal validity, or fitness for production use.
