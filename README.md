@@ -114,9 +114,7 @@ Participant-level records, identifying crosswalks, consent records, and confiden
 
 ## Repository status
 
-This repository is maintained privately during double-anonymized review.
-
-The repository URL, owner identity, commit author metadata, and other identifying information must not appear in the anonymized manuscript, supplementary materials, or reviewer-visible files unless access is provided through an anonymized review arrangement.
+This repository is public. During double-anonymized review, reviewers access the artifact through the anonymized archive submitted with the manuscript; the repository URL, owner identity, and commit metadata do not appear in reviewer-visible materials.
 
 ## License
 
